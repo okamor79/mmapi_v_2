@@ -26,7 +26,7 @@ public class JWTTokenProvider {
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
         claimsMap.put("email", user.getEmail());
-        claimsMap.put("name", user.getUsername());
+        claimsMap.put("userName", user.getUsername());
         claimsMap.put("phone", user.getPhone());
 
         return Jwts.builder()
