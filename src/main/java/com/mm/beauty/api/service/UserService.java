@@ -5,6 +5,7 @@ import com.mm.beauty.api.entity.User;
 import com.mm.beauty.api.payload.request.SignupRequest;
 
 import java.security.Principal;
+import java.util.List;
 
 public interface UserService {
 
@@ -15,5 +16,7 @@ public interface UserService {
     User getUserByPrincipal(Principal principal);
 
     User getCurrentUser(Principal principal);
+
+    List<User> getUserList();
 
 }

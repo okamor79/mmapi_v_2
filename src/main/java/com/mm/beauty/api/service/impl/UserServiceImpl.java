@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(SignupRequest userIn) {
         User user = new User();
         user.setEmail(userIn.getEmail());
-        user.setUserName(userIn.getName());
+        user.setUserName(userIn.getUserName());
         user.setPhone(userIn.getPhone());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getUserRoles().add(URoles.ROLE_USER);
@@ -52,13 +53,18 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UserDTO userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setPhone(userDTO.getPhone());
-        user.setUserName(userDTO.getName());
+        user.setUserName(userDTO.getUserName());
         return userRepository.save(user);
     }
 
     @Override
     public User getCurrentUser(Principal principal) {
         return getUserByPrincipal(principal);
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userRepository.findAll();
     }
 
     @Override

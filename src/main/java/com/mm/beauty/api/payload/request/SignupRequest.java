@@ -18,7 +18,7 @@ public class SignupRequest {
     @ValidEmail
     private String email;
     @NotEmpty
-    private String name;
+    private String userName;
     @NotBlank
     private String phone;
     @NotEmpty
