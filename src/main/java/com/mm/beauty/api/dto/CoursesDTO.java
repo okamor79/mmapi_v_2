@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class CoursesDTO {
 
     private Long id;
-    private String uniquCode;
+    private String uniqueCode;
     private String courseName;
     private String description;
     private String fullDescription;
