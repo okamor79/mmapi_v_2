@@ -15,17 +15,17 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class OrdersList {
+public class Sales {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User clientId;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Courses courseId;
+    private Courses course;
 
     private String orderId;
 
@@ -41,7 +41,7 @@ public class OrdersList {
     private String checkCode;
 
     @ElementCollection(targetClass = OStatus.class)
-    @CollectionTable(name = "order_status", joinColumns = @JoinColumn("order_id"))
+    @CollectionTable(name = "order_status", joinColumns = @JoinColumn(name = "order_id"))
     private Set<OStatus> status = new HashSet<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")

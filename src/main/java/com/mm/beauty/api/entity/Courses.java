@@ -2,17 +2,20 @@ package com.mm.beauty.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mm.beauty.api.entity.enums.CStatus;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
-public class Course {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class Courses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +34,9 @@ public class Course {
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime endDate;
     private int dayAccess;
+    @Column(columnDefinition = "text")
     private String urlCourseVideo;
+    @Column(columnDefinition = "text")
     private String urlCoursePreview;
     private Long avatarId;
     private double price;
@@ -39,6 +44,9 @@ public class Course {
     private String promoCode;
     @Column(columnDefinition = "text")
     private String fullDescription;
+
+    @ElementCollection(targetClass = CStatus.class)
+    @CollectionTable(name = "course_status", joinColumns = @JoinColumn(name = "courses_id"))
     private Set<CStatus> courseStatus = new HashSet<>();
 
     @PrePersist
