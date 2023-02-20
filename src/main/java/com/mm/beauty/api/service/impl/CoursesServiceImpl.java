@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 public class CoursesServiceImpl implements CoursesService {
@@ -57,6 +58,10 @@ public class CoursesServiceImpl implements CoursesService {
             LOG.error("Error course added {}", e.getMessage());
             throw new CourseExistException("Course " + coursesDTO.getUniqueCode() + " - " + coursesDTO.getCourseName() + " already exist");
         }
+    }
+
+    public List<Courses> getAllCourse() {
+        return coursesRepository.findAll();
     }
 
 

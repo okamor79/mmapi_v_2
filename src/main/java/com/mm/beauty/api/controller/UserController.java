@@ -1,7 +1,6 @@
 package com.mm.beauty.api.controller;
 
 import com.mm.beauty.api.dto.UserDTO;
-import com.mm.beauty.api.entity.User;
 import com.mm.beauty.api.facade.UserFacade;
 import com.mm.beauty.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserController {
     @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> getUserList() {
         List<UserDTO> userDTOList = userService.getUserList().stream()
-                .map(userFacade::UsetToUserDTO)
+                .map(userFacade::UserToUserDTO)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }

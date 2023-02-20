@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFacade {
 
-    public UserDTO UsetToUserDTO(User user) {
+    public UserDTO UserToUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setName(user.getUsername());
