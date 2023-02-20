@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByEmail(username)
+        User user = userRepository.findUserByUserName(username)
                 .orElseThrow(()->new UsernameNotFoundException("USER_NOT_FOUND"));
         return build(user);
     }
@@ -40,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .collect(Collectors.toList());
         return new User(
                 user.getId(),
-                user.getEmail(),
+                user.getUsername(),
                 user.getPassword(),
                 authorities
         );

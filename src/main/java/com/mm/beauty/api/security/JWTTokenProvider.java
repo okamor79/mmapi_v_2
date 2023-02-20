@@ -19,6 +19,7 @@ public class JWTTokenProvider {
 
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
+        System.out.println(user);
         Date now = new Date(System.currentTimeMillis());
         Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
 
@@ -26,10 +27,10 @@ public class JWTTokenProvider {
 
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
-        claimsMap.put("email", user.getEmail());
         claimsMap.put("userName", user.getUsername());
+        claimsMap.put("fullName", user.getFullName());
         claimsMap.put("phone", user.getPhone());
-        claimsMap.put("role", user.getUserRoles().stream().count());
+        claimsMap.put("role", user.getUserRoles());
 
         return Jwts.builder()
                 .setSubject(userId)

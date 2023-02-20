@@ -36,9 +36,10 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
-    public Courses createCourse(CoursesDTO coursesDTO) {
+    public Courses createCourse(CoursesDTO coursesDTO, Principal principal) {
         Courses courses = new Courses();
-//        courses.setUser(user);
+        User user = getUserByPrincipal(principal);
+        courses.setUser(user);
         courses.setUniqueCode(coursesDTO.getUniqueCode());
         courses.setName(coursesDTO.getCourseName());
         courses.setDescription(coursesDTO.getDescription());
@@ -66,7 +67,7 @@ public class CoursesServiceImpl implements CoursesService {
 
     public User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
-        return userRepository.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
+        return userRepository.findUserByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
     }
 
 

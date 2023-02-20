@@ -34,14 +34,14 @@ public class UserServiceImpl implements UserService {
 
     public User createUser(SignupRequest userIn) {
         User user = new User();
-        user.setEmail(userIn.getEmail());
-        user.setName(userIn.getUserName());
+        user.setUserName(userIn.getUserName());
+        user.setFullName(userIn.getFullName());
         user.setPhone(userIn.getPhone());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getUserRoles().add(URoles.ROLE_USER);
-        user.getUserStatus().add(UStatus.USER_ENABLE);
+//        user.getUserStatus().add(UStatus.USER_ENABLE);
         try {
-            LOG.info("User created {}", userIn.getEmail());
+            LOG.info("User created {}", userIn.getUserName());
             return userRepository.save(user);
         } catch (Exception e) {
             LOG.error("Error user registration {}", e.getMessage());
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UserDTO userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setPhone(userDTO.getPhone());
-        user.setName(userDTO.getName());
+        user.setFullName(userDTO.getFullName());
         return userRepository.save(user);
     }
 
@@ -70,6 +70,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
-        return userRepository.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
+        return userRepository.findUserByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
     }
 }

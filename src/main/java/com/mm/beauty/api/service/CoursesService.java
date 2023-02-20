@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CoursesService {
 
-    Courses createCourse(CoursesDTO coursesDTO);
+    Courses createCourse(CoursesDTO coursesDTO, Principal principal);
 
     List<Courses> getAllCourse();
 

@@ -42,10 +42,10 @@ public class CourseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Object> addCourse(@Valid @RequestBody CoursesDTO coursesDTO, BindingResult result) {
+    public ResponseEntity<Object> addCourse(@RequestBody CoursesDTO coursesDTO, BindingResult result, Principal principal) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(result);
         if (!ObjectUtils.isEmpty(errors)) return errors;
-        Courses courses = coursesService.createCourse(coursesDTO);
+        Courses courses = coursesService.createCourse(coursesDTO, principal);
         CoursesDTO addedCourse = courseFacade.CourseToCourseDTO(courses);
         return new ResponseEntity<>(  addedCourse, HttpStatus.OK);
 

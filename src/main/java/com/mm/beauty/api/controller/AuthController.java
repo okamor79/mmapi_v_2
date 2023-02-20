@@ -43,7 +43,7 @@ public class AuthController {
         if (!ObjectUtils.isEmpty(errors)) return errors;
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getEmail(), request.getPassword()
+                request.getUserName(), request.getPassword()
         ));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

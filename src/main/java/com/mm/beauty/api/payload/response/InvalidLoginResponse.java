@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public class InvalidLoginResponse {
 
-    private String email;
+    private String userName;
     private String password;
 
     public InvalidLoginResponse() {
-        this.email = "Invaild email";
+        this.userName = "Invaild username";
         this.password = "Invalid password";
     }
 

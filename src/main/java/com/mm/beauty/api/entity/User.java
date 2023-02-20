@@ -23,26 +23,26 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true, updatable = false)
-    private String email;
-    @Column(nullable = false, name = "user_name")
-    private String name;
+    private String userName;
+    @Column(nullable = false, name = "full_name")
+    private String fullName;
     @Column(nullable = false)
     private String phone;
     @Column(length = 3000)
     private String password;
 
-    @ElementCollection(targetClass = UStatus.class)
+/*    @ElementCollection(targetClass = UStatus.class)
     @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
     private Set<UStatus> userStatus = new HashSet<>();
-
+*/
     @ElementCollection(targetClass = URoles.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<URoles> userRoles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private List<Sales> orderList = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+//    private List<Sales> orderList = new ArrayList<>();
+//
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Courses> CoursesList = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
@@ -52,9 +52,9 @@ public class User implements UserDetails {
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public User(Long id, String userName, String password,  Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.email = email;
+        this.userName = userName;
         this.password = password;
         this.authorities = authorities;
     }
@@ -72,9 +72,10 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
     @Override
     public String getUsername() {
-        return name;
+        return userName;
     }
 
     @Override
