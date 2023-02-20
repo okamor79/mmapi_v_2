@@ -24,8 +24,8 @@ public class User implements UserDetails {
     private Long id;
     @Column(nullable = false, unique = true, updatable = false)
     private String email;
-    @Column(nullable = false)
-    private String userName;
+    @Column(nullable = false, name = "user_name")
+    private String name;
     @Column(nullable = false)
     private String phone;
     @Column(length = 3000)
@@ -71,7 +71,7 @@ public class User implements UserDetails {
     }
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override

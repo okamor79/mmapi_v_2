@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mm.beauty.api.entity.enums.CStatus;
 import lombok.*;
 
+import com.mm.beauty.api.entity.User;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -44,6 +46,8 @@ public class Courses {
     private String promoCode;
     @Column(columnDefinition = "text")
     private String fullDescription;
+
+    private User user;
 
     @ElementCollection(targetClass = CStatus.class)
     @CollectionTable(name = "course_status", joinColumns = @JoinColumn(name = "courses_id"))

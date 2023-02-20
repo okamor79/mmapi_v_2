@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(SignupRequest userIn) {
         User user = new User();
         user.setEmail(userIn.getEmail());
-        user.setUserName(userIn.getUserName());
+        user.setName(userIn.getUserName());
         user.setPhone(userIn.getPhone());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getUserRoles().add(URoles.ROLE_USER);
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(UserDTO userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setPhone(userDTO.getPhone());
-        user.setUserName(userDTO.getUserName());
+        user.setName(userDTO.getName());
         return userRepository.save(user);
     }
 
