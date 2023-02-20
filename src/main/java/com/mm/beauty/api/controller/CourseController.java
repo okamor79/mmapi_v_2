@@ -1,10 +1,7 @@
 package com.mm.beauty.api.controller;
 
 import com.mm.beauty.api.dto.CoursesDTO;
-import com.mm.beauty.api.dto.UserDTO;
-import com.mm.beauty.api.entity.Courses;
 import com.mm.beauty.api.facade.CourseFacade;
-import com.mm.beauty.api.payload.request.SignupRequest;
 import com.mm.beauty.api.service.CoursesService;
 import com.mm.beauty.api.validations.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
