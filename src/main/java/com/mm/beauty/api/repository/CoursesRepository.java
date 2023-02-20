@@ -13,6 +13,6 @@ public interface CoursesRepository extends JpaRepository<Courses, Long> {
 
     Courses findCoursesById(Long id);
 
-    Courses findCoursesByUniqCode(String uCode);
+    Courses findCoursesByUniqueCode(String uCode);
 
 }

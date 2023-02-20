@@ -1,7 +1,9 @@
 package com.mm.beauty.api.controller;
 
 import com.mm.beauty.api.dto.CoursesDTO;
+import com.mm.beauty.api.entity.Courses;
 import com.mm.beauty.api.facade.CourseFacade;
+import com.mm.beauty.api.payload.response.MessageResponse;
 import com.mm.beauty.api.service.CoursesService;
 import com.mm.beauty.api.validations.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,13 +41,13 @@ public class CourseController {
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 
-
     @PostMapping("/add")
-    public ResponseEntity<Object> addCourse(@RequestBody CoursesDTO request, BindingResult result, Principal principal) {
+    public ResponseEntity<Object> addCourse(@Valid @RequestBody CoursesDTO coursesDTO, BindingResult result) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(result);
         if (!ObjectUtils.isEmpty(errors)) return errors;
-        coursesService.createCourse(request, principal);
-        return null;
+        Courses courses = coursesService.createCourse(coursesDTO);
+        CoursesDTO addedCourse = courseFacade.CourseToCourseDTO(courses);
+        return new ResponseEntity<>(  addedCourse, HttpStatus.OK);
 
     }
 }

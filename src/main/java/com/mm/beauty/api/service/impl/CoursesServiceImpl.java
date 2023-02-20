@@ -36,11 +36,10 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
-    public Courses createCourse(CoursesDTO coursesDTO, Principal principal) {
-        User user = getUserByPrincipal(principal);
+    public Courses createCourse(CoursesDTO coursesDTO) {
         Courses courses = new Courses();
-        courses.setUser(user);
-        courses.setUniqCode(coursesDTO.getUniqueCode());
+//        courses.setUser(user);
+        courses.setUniqueCode(coursesDTO.getUniqueCode());
         courses.setName(coursesDTO.getCourseName());
         courses.setDescription(coursesDTO.getDescription());
         courses.setFullDescription(coursesDTO.getFullDescription());

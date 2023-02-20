@@ -23,7 +23,7 @@ public class Courses {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(updatable = false, nullable = false)
-    private String uniqCode;
+    private String uniqueCode;
     @Column(nullable = false)
     private String name;
     @Column(columnDefinition = "text")
@@ -46,7 +46,7 @@ public class Courses {
     private String promoCode;
     @Column(columnDefinition = "text")
     private String fullDescription;
-
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @ElementCollection(targetClass = CStatus.class)

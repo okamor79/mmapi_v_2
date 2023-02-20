@@ -12,7 +12,7 @@ public class CourseFacade {
         coursesDTO.setId(courses.getId());
         coursesDTO.setCourseName(courses.getName());
         coursesDTO.setDescription(courses.getDescription());
-        coursesDTO.setUniqueCode(courses.getUniqCode());
+        coursesDTO.setUniqueCode(courses.getUniqueCode());
         coursesDTO.setFullDescription(courses.getFullDescription());
         coursesDTO.setPrice(courses.getPrice());
         coursesDTO.setAvatarId(courses.getAvatarId());
