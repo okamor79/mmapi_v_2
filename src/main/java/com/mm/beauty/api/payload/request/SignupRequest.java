@@ -2,6 +2,7 @@ package com.mm.beauty.api.payload.request;
 
 import com.mm.beauty.api.annotation.PasswordMatches;
 import com.mm.beauty.api.annotation.ValidEmail;
+import com.mm.beauty.api.annotation.ValidPhone;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ public class SignupRequest {
     @NotEmpty
     private String fullName;
     @NotBlank
+    @ValidPhone
     private String phone;
     @NotEmpty
     @Size(min = 6)
