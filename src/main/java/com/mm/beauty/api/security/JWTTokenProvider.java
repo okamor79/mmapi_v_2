@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class JWTTokenProvider {
@@ -28,6 +29,7 @@ public class JWTTokenProvider {
         claimsMap.put("email", user.getEmail());
         claimsMap.put("userName", user.getUsername());
         claimsMap.put("phone", user.getPhone());
+        claimsMap.put("role", user.getUserRoles().stream().count());
 
         return Jwts.builder()
                 .setSubject(userId)
