@@ -5,7 +5,7 @@ import com.mm.beauty.api.entity.Courses;
 import com.mm.beauty.api.entity.User;
 import com.mm.beauty.api.entity.enums.CStatus;
 import com.mm.beauty.api.exceptions.CourseExistException;
-import com.mm.beauty.api.repository.AvatarCoursesRepository;
+import com.mm.beauty.api.repository.ImageModelRepository;
 import com.mm.beauty.api.repository.CoursesRepository;
 import com.mm.beauty.api.repository.UserRepository;
 import com.mm.beauty.api.service.CoursesService;
@@ -24,12 +24,10 @@ public class CoursesServiceImpl implements CoursesService {
 
     private final UserRepository userRepository;
     private final CoursesRepository coursesRepository;
-    private final AvatarCoursesRepository avatarCoursesRepository;
 
-    public CoursesServiceImpl(UserRepository userRepository, CoursesRepository coursesRepository, AvatarCoursesRepository avatarCoursesRepository) {
+    public CoursesServiceImpl(UserRepository userRepository, CoursesRepository coursesRepository) {
         this.userRepository = userRepository;
         this.coursesRepository = coursesRepository;
-        this.avatarCoursesRepository = avatarCoursesRepository;
     }
 
     @Override

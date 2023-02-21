@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AvatarCourseModel {
+public class ImageModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,11 @@ public class AvatarCourseModel {
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] imageBytes;
+
+    private String name;
     @JsonIgnore
     private Long courseId;
+    @JsonIgnore
+    private Long userId;
 
 }
