@@ -12,4 +12,6 @@ public interface CoursesService {
 
     List<Courses> getAllCourse();
 
+    Courses getCourseById(Long id);
+
 }

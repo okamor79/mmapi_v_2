@@ -5,14 +5,12 @@ import com.mm.beauty.api.entity.Courses;
 import com.mm.beauty.api.entity.User;
 import com.mm.beauty.api.entity.enums.CStatus;
 import com.mm.beauty.api.exceptions.CourseExistException;
-import com.mm.beauty.api.exceptions.UserExistException;
 import com.mm.beauty.api.repository.AvatarCoursesRepository;
 import com.mm.beauty.api.repository.CoursesRepository;
 import com.mm.beauty.api.repository.UserRepository;
 import com.mm.beauty.api.service.CoursesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,6 @@ public class CoursesServiceImpl implements CoursesService {
     private final CoursesRepository coursesRepository;
     private final AvatarCoursesRepository avatarCoursesRepository;
 
-    @Autowired
     public CoursesServiceImpl(UserRepository userRepository, CoursesRepository coursesRepository, AvatarCoursesRepository avatarCoursesRepository) {
         this.userRepository = userRepository;
         this.coursesRepository = coursesRepository;
@@ -60,9 +57,20 @@ public class CoursesServiceImpl implements CoursesService {
         }
     }
 
+    @Override
     public List<Courses> getAllCourse() {
         return coursesRepository.findAll();
     }
+
+    @Override
+    public Courses getCourseById(Long id) {
+        return coursesRepository.findCoursesById(id);
+    }
+
+//    public Courses getCourseById(Long id, Principal principal) {
+//        User user = getUserByPrincipal(principal);
+//        return coursesRepository.findCoursesById(id);
+//    }
 
 
     public User getUserByPrincipal(Principal principal) {
