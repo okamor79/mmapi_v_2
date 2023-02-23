@@ -34,14 +34,14 @@ public class UserServiceImpl implements UserService {
 
     public User createUser(SignupRequest userIn) {
         User user = new User();
-        user.setUserName(userIn.getUserName());
+        user.setUsername(userIn.getUsername());
         user.setFullName(userIn.getFullName());
         user.setPhone(userIn.getPhone());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getUserRoles().add(URoles.ROLE_USER);
 //        user.getUserStatus().add(UStatus.USER_ENABLE);
         try {
-            LOG.info("User created {}", userIn.getUserName());
+            LOG.info("User created {}", userIn.getUsername());
             return userRepository.save(user);
         } catch (Exception e) {
             LOG.error("Error user registration {}", e.getMessage());
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
-        return userRepository.findUserByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
     }
 
     @Override

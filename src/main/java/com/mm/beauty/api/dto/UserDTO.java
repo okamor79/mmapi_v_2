@@ -12,7 +12,7 @@ public class UserDTO {
 
     private Long id;
     @NotEmpty
-    private String userName;
+    private String username;
     @NotEmpty
     private String fullName;
     @NotEmpty

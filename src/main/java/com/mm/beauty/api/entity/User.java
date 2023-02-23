@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true, updatable = false)
-    private String userName;
+    private String username;
     @Column(nullable = false, name = "full_name")
     private String fullName;
     @Column(nullable = false)
@@ -52,9 +52,9 @@ public class User implements UserDetails {
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User(Long id, String userName, String password,  Collection<? extends GrantedAuthority> authorities) {
+    public User(Long id, String username, String password,  Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
@@ -75,7 +75,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
