@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
-@PreAuthorize("permitAll()")
 public class UserController {
 
     @Autowired
@@ -38,7 +37,9 @@ public class UserController {
     public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
         User user = userService.getCurrentUser(principal);
         UserDTO userDTO = userFacade.UserToUserDTO(user);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        System.out.println(userDTO);
+        return null;
+        //return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @GetMapping("/list")

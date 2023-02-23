@@ -41,6 +41,7 @@ public class AuthController {
     public ResponseEntity<Object> authentificateUser(@Valid @RequestBody LoginRequest request, BindingResult result) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(result);
         if (!ObjectUtils.isEmpty(errors)) return errors;
+        System.out.println(request.getUsername());
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword()

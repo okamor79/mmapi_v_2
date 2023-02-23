@@ -21,7 +21,6 @@ public class SignupRequest {
     @NotEmpty
     private String fullName;
     @NotBlank
-    @ValidPhone
     private String phone;
     @NotEmpty
     @Size(min = 6)

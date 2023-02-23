@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser(Principal principal) {
+        System.out.println(principal);
         return getUserByPrincipal(principal);
     }
 
