@@ -1,6 +1,7 @@
 package com.mm.beauty.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mm.beauty.api.entity.enums.CStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -20,5 +21,7 @@ public class CoursesDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private int dayAccess;
+
+    private CStatus status;
 
 }

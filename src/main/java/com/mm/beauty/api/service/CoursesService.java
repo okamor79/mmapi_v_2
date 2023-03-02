@@ -12,6 +12,8 @@ public interface CoursesService {
 
     List<Courses> getAllCourse();
 
+    Courses changeStatus(Long id);
+
     Courses getCourseById(Long id);
 
 }

@@ -14,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RestController
 @RequestMapping("/auth")
 @PreAuthorize("permitAll()")
@@ -41,7 +40,6 @@ public class AuthController {
     public ResponseEntity<Object> authentificateUser(@Valid @RequestBody LoginRequest request, BindingResult result) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(result);
         if (!ObjectUtils.isEmpty(errors)) return errors;
-        System.out.println(request.getUsername());
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword()
@@ -58,6 +56,12 @@ public class AuthController {
         if (!ObjectUtils.isEmpty(errors)) return errors;
         userService.createUser(request);
         return ResponseEntity.ok(new MessageResponse("User register successfully"));
+    }
+
+    @PostMapping("/{username}/reset")
+    public ResponseEntity<Object> resetPassword(@PathVariable("username") String username) {
+        userService.resetUserPassword(username);
+        return ResponseEntity.ok(new MessageResponse("Password reset"));
     }
 
 

@@ -13,7 +13,6 @@ import java.util.Map;
 
 @Component
 public class JWTTokenProvider {
-
     public static final Logger LOG = LoggerFactory.getLogger(JWTTokenProvider.class);
 
     public String generateToken(Authentication authentication) {
@@ -28,7 +27,7 @@ public class JWTTokenProvider {
         claimsMap.put("username", user.getUsername());
         claimsMap.put("fullName", user.getFullName());
         claimsMap.put("phone", user.getPhone());
-        claimsMap.put("role", user.getUserRoles());
+        claimsMap.put("role", user.getRoles());
 
         return Jwts.builder()
                 .setSubject(userId)
@@ -37,6 +36,7 @@ public class JWTTokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
+
     }
 
     public boolean validateToken(String token) {
@@ -45,7 +45,7 @@ public class JWTTokenProvider {
                     .setSigningKey(SecurityConstants.SECRET)
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException |
+        }catch (SignatureException |
                 MalformedJwtException |
                 ExpiredJwtException |
                 UnsupportedJwtException |
@@ -63,7 +63,5 @@ public class JWTTokenProvider {
         String id = (String) claims.get("id");
         return Long.parseLong(id);
     }
-
-
 
 }

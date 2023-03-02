@@ -15,14 +15,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Sales {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Courses course;
@@ -37,12 +38,12 @@ public class Sales {
     private LocalDateTime datePayment;
 
     private boolean payCheck;
+    private double orderAmount;
 
     private String checkCode;
 
-    @ElementCollection(targetClass = OStatus.class)
-    @CollectionTable(name = "order_status", joinColumns = @JoinColumn(name = "order_id"))
-    private Set<OStatus> status = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private OStatus status = OStatus.ORDER_WAIT;
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime expireDate;

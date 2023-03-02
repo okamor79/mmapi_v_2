@@ -3,15 +3,18 @@ spring:
     url: jdbc:mysql://mysql317.1gb.ua:3306/gbua_mmcourse?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false
     username: gbua_mmcourse
     password: ddccbbef4zxv
+
     hikari:
       connection-timeout: 60000
       maximum-pool-size: 10
   jpa:
     hibernate:
       ddl-auto: update
+
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
     show-sql: false
 
   mail:
@@ -26,13 +29,32 @@ spring:
           starttls:
             enable: false
     protocol: smtp
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+  messages:
+    encoding: UTF-8
+
 sender:
-  mail: M&M Beauty School <school@mmbeauty.com.ua>
+  mail: M&M Beauty LAB <school@mmbeauty.com.ua>
 password:
-  length: 15
+  length: 8
 key:
-  public: i47686115987
-  private: dILVnOQhuSfcjRFrtNjOKxUSdP4U02dxQl2HkRD6
+  public-orig: i47686115987
+  private-orig: dILVnOQhuSfcjRFrtNjOKxUSdP4U02dxQl2HkRD6
+  public: sandbox_i95838346916
+  private: sandbox_LNqBdEb7fiJILtTy1hNxFXidEY2asDbUMeHke60O
 api:
   version: 3
-
+http:
+  multipart:
+    max-file-size: 512MB
+    max-request-size: 512MB
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+  tomcat:
+    uri-encoding: UTF-8

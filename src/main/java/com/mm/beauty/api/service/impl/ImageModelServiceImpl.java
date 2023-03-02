@@ -30,11 +30,13 @@ public class ImageModelServiceImpl implements ImageModelService {
     public static final Logger LOG = LoggerFactory.getLogger(ImageModelServiceImpl.class);
 
 
+    private final CoursesRepository coursesRepository;
     private final ImageModelRepository imageModelRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public ImageModelServiceImpl(ImageModelRepository imageModelRepository, UserRepository userRepository) {
+    public ImageModelServiceImpl(CoursesRepository coursesRepository, ImageModelRepository imageModelRepository, UserRepository userRepository) {
+        this.coursesRepository = coursesRepository;
         this.imageModelRepository = imageModelRepository;
         this.userRepository = userRepository;
     }
@@ -56,17 +58,12 @@ public class ImageModelServiceImpl implements ImageModelService {
 
     @Override
     public ImageModel uploadImageToCourse(MultipartFile file, Principal principal, Long id) throws IOException {
-        User user = getUserByPrincipal(principal);
-        Courses courses = user.getCoursesList()
-                .stream()
-                .filter(p -> p.getId().equals(id))
-                .collect(toSingleCourseCollector());
+        Courses courses = coursesRepository.findCoursesById(id);
         ImageModel imageModel = new ImageModel();
         imageModel.setCourseId(courses.getId());
         imageModel.setImageBytes(compressBytes(file.getBytes()));
         imageModel.setName(file.getOriginalFilename());
         return imageModelRepository.save(imageModel);
-
     }
 
     @Override

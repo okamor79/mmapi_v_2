@@ -9,12 +9,14 @@ import com.mm.beauty.api.entity.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
-@Entity
+@Entity(name="courses")
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Getter
 @Setter
 public class Courses {
@@ -36,11 +38,11 @@ public class Courses {
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime endDate;
     private int dayAccess;
-    @Column(columnDefinition = "text")
+    @Lob
     private String urlCourseVideo;
-    @Column(columnDefinition = "text")
+    @Lob
     private String urlCoursePreview;
-    private Long avatarId;
+
     private double price;
     private double discount = 1;
     private String promoCode;
@@ -48,10 +50,8 @@ public class Courses {
     private String fullDescription;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
-    @ElementCollection(targetClass = CStatus.class)
-    @CollectionTable(name = "course_status", joinColumns = @JoinColumn(name = "courses_id"))
-    private Set<CStatus> courseStatus = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private CStatus status = CStatus.COURSE_ENABLE;
 
     @PrePersist
     protected void onCreate() {

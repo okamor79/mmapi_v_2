@@ -34,7 +34,7 @@ public class CoursesServiceImpl implements CoursesService {
     public Courses createCourse(CoursesDTO coursesDTO, Principal principal) {
         Courses courses = new Courses();
         User user = getUserByPrincipal(principal);
-        courses.setUser(user);
+//        courses.setUser(user);
         courses.setUniqueCode(coursesDTO.getUniqueCode());
         courses.setName(coursesDTO.getCourseName());
         courses.setDescription(coursesDTO.getDescription());
@@ -44,8 +44,8 @@ public class CoursesServiceImpl implements CoursesService {
         courses.setEndDate(coursesDTO.getEndDate());
         courses.setUrlCourseVideo(coursesDTO.getUrlCourseVideo());
         courses.setUrlCoursePreview(coursesDTO.getUrlCoursePreview());
-        courses.getCourseStatus().add(CStatus.COURSE_ENABLE);
-        courses.setAvatarId(coursesDTO.getAvatarId());
+        courses.setStatus(CStatus.COURSE_ENABLE);
+        courses.setDayAccess(coursesDTO.getDayAccess());
         try {
             LOG.info("Course added {}", coursesDTO.getUniqueCode() + " - " + coursesDTO.getCourseName());
             return coursesRepository.save(courses);
@@ -61,14 +61,25 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
+    public Courses changeStatus(Long id) {
+        Courses course = coursesRepository.findCoursesById(id);
+        switch (course.getStatus()) {
+            case COURSE_ENABLE : {
+                course.setStatus(CStatus.COURSE_DISABLE);
+                break;
+            }
+            case COURSE_DISABLE : {
+                course.setStatus(CStatus.COURSE_ENABLE);
+                break;
+            }
+        }
+        return coursesRepository.save(course);
+    }
+
+    @Override
     public Courses getCourseById(Long id) {
         return coursesRepository.findCoursesById(id);
     }
-
-//    public Courses getCourseById(Long id, Principal principal) {
-//        User user = getUserByPrincipal(principal);
-//        return coursesRepository.findCoursesById(id);
-//    }
 
 
     public User getUserByPrincipal(Principal principal) {

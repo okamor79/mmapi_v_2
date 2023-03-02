@@ -15,12 +15,12 @@ public class CourseFacade {
         coursesDTO.setUniqueCode(courses.getUniqueCode());
         coursesDTO.setFullDescription(courses.getFullDescription());
         coursesDTO.setPrice(courses.getPrice());
-        coursesDTO.setAvatarId(courses.getAvatarId());
         coursesDTO.setUrlCoursePreview(courses.getUrlCoursePreview());
         coursesDTO.setUrlCourseVideo(courses.getUrlCourseVideo());
         coursesDTO.setDayAccess(courses.getDayAccess());
         coursesDTO.setStartDate(courses.getStartDate());
         coursesDTO.setEndDate(courses.getEndDate());
+        coursesDTO.setStatus(courses.getStatus());
         return coursesDTO;
 
     }

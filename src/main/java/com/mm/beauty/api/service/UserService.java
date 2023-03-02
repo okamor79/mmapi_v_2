@@ -2,6 +2,7 @@ package com.mm.beauty.api.service;
 
 import com.mm.beauty.api.dto.UserDTO;
 import com.mm.beauty.api.entity.User;
+import com.mm.beauty.api.exceptions.UserExistException;
 import com.mm.beauty.api.payload.request.SignupRequest;
 
 import java.security.Principal;
@@ -20,5 +21,7 @@ public interface UserService {
     List<User> getUserList();
 
     User getUserById(Long id);
+
+    Boolean resetUserPassword(String username) throws UserExistException;
 
 }

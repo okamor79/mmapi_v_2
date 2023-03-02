@@ -2,8 +2,9 @@ package com.mm.beauty.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mm.beauty.api.entity.enums.URoles;
-import com.mm.beauty.api.entity.enums.UStatus;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
+@ToString
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,24 +37,25 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_status", joinColumns = @JoinColumn(name = "user_id"))
     private Set<UStatus> userStatus = new HashSet<>();
 */
-    @ElementCollection(targetClass = URoles.class)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<URoles> userRoles = new HashSet<>();
+@ElementCollection(targetClass = URoles.class, fetch = FetchType.EAGER)
+@CollectionTable(name = "user_role",
+        joinColumns = @JoinColumn(name = "user_id"))
+private Set<URoles> roles = new HashSet<>();
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-//    private List<Sales> orderList = new ArrayList<>();
-//
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    private List<Courses> CoursesList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Sales> orderList;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Courses> coursesList = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     @Column(updatable = false)
     private LocalDateTime createDate;
 
     @Transient
-    private Collection<? extends GrantedAuthority> authorities;
+    private List<? extends GrantedAuthority> authorities;
 
-    public User(Long id, String username, String password,  Collection<? extends GrantedAuthority> authorities) {
+    public User(Long id, String username, String password,  List<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;

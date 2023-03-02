@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity(name="avatar_course_model")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
